@@ -32,6 +32,10 @@ const getTarget = (inputNumbers) => {
         for (i; i >= 0; i--) {
             const elem2 = parseInt(inputNumbers[i]);
             const firstSum = elem1 + elem2
+            if (firstSum === TARGET) {
+                console.log("Part 1 solution: " + multiplyArray([elem1, elem2]));
+            }
+
             if (firstSum >= TARGET || breakCycle) {
                 break;
             };
@@ -45,7 +49,7 @@ const getTarget = (inputNumbers) => {
                 const elem3 = parseInt(inputNumbers[k]);
                 const secondSum = elem1 + elem2 + elem3
                 if (secondSum === TARGET) {
-                    output.push(elem1, elem2, elem3)
+                    console.log("Part 2 solution: " + multiplyArray([elem1, elem2, elem3]))
                     breakCycle = true
                 } else if (secondSum >= TARGET) {
                     break
@@ -54,8 +58,6 @@ const getTarget = (inputNumbers) => {
             
         };
     });
-    
-    return output
 }
 
-console.log(multiplyArray(getTarget(inputNumbers)))
+getTarget(inputNumbers);

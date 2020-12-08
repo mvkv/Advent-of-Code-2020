@@ -8,25 +8,35 @@ const TARGET = 2020;
 const inputArr = fs.readFileSync(file, 'utf-8').split(os.EOL);
 
 const validatePasswords = (passwords) => {
-    let validPasswords = 0;
+    let validPasswordsPartOne = 0;
+    let validPasswordsPartTwo = 0;
     passwords.forEach((password) => {
-        const regEx = /[\s-:]+/
-        const [minOccur, maxOccur, letter, passwordKey] = password.split(regEx)
+        const regEx = /[\s-:]+/;
+        const [minOccur, maxOccur, letter, passwordKey] = password.split(regEx);
 
-        let occurencies = 0
+        // Part one
+        let occurPartOne = 0;
         for (const c of passwordKey) {
             if (c.match(letter)) {
-                occurencies++;
-            }
-        }
+                occurPartOne++;
+            };
+        };
+        if (occurPartOne >= minOccur && occurPartOne <= maxOccur ) {
+            validPasswordsPartOne++;
+        };
 
-        if (occurencies >= minOccur && occurencies <= maxOccur ) {
-            validPasswords++;
-        }
+        //Part two
+        const occurString = new Set()
+        occurString.add(passwordKey[minOccur - 1])
+        occurString.add(passwordKey[maxOccur - 1])
+        if (occurString.size > 1 && occurString.has(letter)) {
+            validPasswordsPartTwo++;
+        };
     });
-    return validPasswords
+    console.log("Part 1 solution: " + validPasswordsPartOne);
+    console.log("Part 2 solution: " + validPasswordsPartTwo);
+
+    
 };
 
-const validPasswords = validatePasswords(inputArr)
-console.log(validPasswords)
-
+validatePasswords(inputArr);
